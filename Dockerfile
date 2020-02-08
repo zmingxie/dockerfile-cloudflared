@@ -3,9 +3,7 @@ FROM golang:alpine AS builder
 ENV CLOUDFLARED_VERSION 2020.2.0
 
 RUN apk update && apk add build-base;
-RUN cd /go/src && \
-    wget https://github.com/cloudflare/cloudflared/archive/${CLOUDFLARED_VERSION}.tar.gz \
-    && tar xzf ${CLOUDFLARED_VERSION}.tar.gz
+RUN wget -O- https://github.com/cloudflare/cloudflared/archive/${CLOUDFLARED_VERSION}.tar.gz | tar -xzv  -C /go/src
 WORKDIR /go/src/cloudflared-${CLOUDFLARED_VERSION}/cmd/cloudflared
 RUN go build -o /go/bin/cloudflared
 
