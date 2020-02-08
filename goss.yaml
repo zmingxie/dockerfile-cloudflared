@@ -3,9 +3,7 @@ package:
     installed: true
 
 command:
-  cloudflared --version | head -1:
+  cloudflared --version:
     exit-status: 0
-
-command:
-  uname -a:
-    exit-status: 0
+    stdout:
+    - cloudflared version DEV (built unknown)

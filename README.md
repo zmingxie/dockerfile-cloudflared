@@ -1,26 +1,48 @@
-# Cloudflared
+# Cloudflared in Docker
 
-[![Build Status](https://travis-ci.org/visibilityspots/dockerfile-cloudflared.svg?branch=master)](https://travis-ci.org/visibilityspots/dockerfile-cloudflared)
-[![](https://images.microbadger.com/badges/image/visibilityspots/cloudflared:amd64.svg)](https://microbadger.com/images/visibilityspots/cloudflared:amd64)
+![.github/workflows/main.yaml](https://github.com/zmingxie/dockerfile-cloudflared/workflows/.github/workflows/main.yaml/badge.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Docker Pulls](https://img.shields.io/docker/pulls/visibilityspots/cloudflared.svg)](https://hub.docker.com/r/visibilityspots/cloudflared/)
+[![Docker Pulls](https://img.shields.io/docker/pulls/mxie/cloudflared.svg)](https://hub.docker.com/r/mxie/cloudflared/)
+[![Docker Layers](https://images.microbadger.com/badges/image/mxie/cloudflared:latest.svg)](https://microbadger.com/images/mxie/cloudflared:latest)
 
-a docker container which runs the [cloudflared](https://developers.cloudflare.com/1.1.1.1/dns-over-https/cloudflared-proxy/) proxy-dns at port 5054 based on alpine with some parameters to enable DNS over HTTPS proxy for [pi-hole](https://pi-hole.net/) based on tutorials from [Oliver Hough](https://oliverhough.cloud/blog/configure-pihole-with-dns-over-https/) and [Scott Helme](https://scotthelme.co.uk/securing-dns-across-all-of-my-devices-with-pihole-dns-over-https-1-1-1-1/)
+(Forked from [upstream](https://github.com/visibilityspots/dockerfile-cloudflared) and modified to use Github Action for releases)
 
-## run
+A docker container which runs the [cloudflared](https://developers.cloudflare.com/1.1.1.1/dns-over-https/cloudflared-proxy/) proxy-dns at port 5054 based on alpine with some parameters to enable DNS over HTTPS proxy for [pi-hole](https://pi-hole.net/) based on tutorials from [Oliver Hough](https://oliverhough.cloud/blog/configure-pihole-with-dns-over-https/) and [Scott Helme](https://scotthelme.co.uk/securing-dns-across-all-of-my-devices-with-pihole-dns-over-https-1-1-1-1/)
 
-```docker run --name cloudflared --rm --net host visibilityspots/cloudflared```
+## Run
+
+```bash
+docker run --name cloudflared --rm --net host mxie/cloudflared
+```
 
 ### custom upstream DNS
 
-```docker run --name cloudflared --rm --net host -e DNS1=#.#.#.# -e DNS2=#.#.#.# visibilityspots/cloudflared```
+```bash
+docker run --name cloudflared --rm --net host -e DNS1=x.x.x.x -e DNS2=x.x.x.x mxie/cloudflared
+```
 
-## test
+### docker-compose
 
-I wrote some tests in a goss.yaml file which can be executed by [dgoss](https://github.com/aelsabbahy/goss/tree/master/extras/dgoss)
+```yaml
+version: "3"
+
+services:
+  cloudflared:
+    container_name: cloudflared
+    image: mxie/cloudflared:latest
+    restart: unless-stopped
+    # networks config is optional
+    networks:
+      pihole_net:
+        ipv4_address: 10.0.0.2
+```
+
+## Test
+
+I wrote some tests in a [goss.yaml](./goss.yaml) file which can be executed by [dgoss](https://github.com/aelsabbahy/goss/tree/master/extras/dgoss)
 
 ```
-$ dgoss run --name cloudflared --rm -ti visibilityspots/cloudflared:latest
+$ dgoss run --name cloudflared --rm -ti mxie/cloudflared:latest
 INFO: Starting docker container
 INFO: Container ID: e5bd35d3
 INFO: Sleeping for 0.2
