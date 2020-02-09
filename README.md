@@ -1,6 +1,6 @@
 # Cloudflared in Docker
 
-![.github/workflows/main.yaml](https://github.com/zmingxie/dockerfile-cloudflared/workflows/.github/workflows/main.yaml/badge.svg)
+[![Docker multi-arch build](https://github.com/zmingxie/dockerfile-cloudflared/workflows/docker-buildx-push/badge.svg?branch=master&event=push)](https://github.com/zmingxie/dockerfile-cloudflared/actions?query=workflow%3Adocker-buildx-push)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Docker Pulls](https://img.shields.io/docker/pulls/mxie/cloudflared.svg)](https://hub.docker.com/r/mxie/cloudflared/)
 [![Docker Layers](https://images.microbadger.com/badges/image/mxie/cloudflared:latest.svg)](https://microbadger.com/images/mxie/cloudflared:latest)

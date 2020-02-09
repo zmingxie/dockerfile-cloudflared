@@ -1,4 +1,4 @@
-name: Build multi-arch Docker Images via buildx
+name: docker-buildx-push
 
 on:
   push:
