@@ -22,5 +22,5 @@ jobs:
       -
         name: Build dev image and check dgoss
         run: |
-          docker build . --file Dockerfile --tag ${{ env.DOCKER_IMAGE_NAME }}:local
+          docker build . --file Dockerfile --build-arg VCS_REF=`git rev-parse --short HEAD` --tag ${{ env.DOCKER_IMAGE_NAME }}:local
           dgoss run --name cloudflared --rm -ti ${{ env.DOCKER_IMAGE_NAME }}:local
