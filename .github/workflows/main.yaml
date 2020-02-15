@@ -17,7 +17,7 @@ jobs:
       -
         name: Build and Publish Docker Images
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-        uses: ilteoood/docker_buildx@master
+        uses: zmingxie/docker_buildx@master
         with:
           publish: true
           tag: latest
