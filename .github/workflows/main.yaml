@@ -16,12 +16,12 @@ jobs:
         uses: actions/checkout@v2
       -
         name: Build and Publish Docker Images
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master'
         uses: zmingxie/docker_buildx@master
         with:
           publish: true
           tag: latest
           dockerFile: ./Dockerfile
+          buildArg: VCS_REF=`git rev-parse --short HEAD`,BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
           platform: linux/amd64,linux/arm64,linux/arm/v7
           imageName: ${{ env.DOCKER_IMAGE_NAME }}
           dockerHubUser: ${{ secrets.DOCKER_LOGIN_USERNAME }}

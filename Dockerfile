@@ -13,9 +13,9 @@ FROM alpine
 ARG VCS_REF
 
 LABEL org.label-schema.name="Cloudflared Docker" \
-      org.label-schema.version=$CLOUDFLARED_VERSION \
+      org.label-schema.version="${CLOUDFLARED_VERSION}" \
       org.label-schema.schema-version="1.0" \
-      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-ref="$VCS_REF" \
       org.label-schema.vcs-url="https://github.com/zmingxie/dockerfile-cloudflared"
 
 ENV DNS1 1.1.1.1
