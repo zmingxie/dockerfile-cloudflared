@@ -3,12 +3,20 @@ FROM golang:alpine AS builder
 ENV CLOUDFLARED_VERSION 2020.2.0
 
 RUN apk update && apk add build-base;
-RUN wget -O- https://github.com/cloudflare/cloudflared/archive/${CLOUDFLARED_VERSION}.tar.gz | tar -xzv  -C /go/src
+RUN wget -O- https://github.com/cloudflare/cloudflared/archive/${CLOUDFLARED_VERSION}.tar.gz | tar -xz -C /go/src
 WORKDIR /go/src/cloudflared-${CLOUDFLARED_VERSION}/cmd/cloudflared
 RUN go build -o /go/bin/cloudflared
 
 
 FROM alpine
+
+ARG VCS_REF
+
+LABEL org.label-schema.name="Cloudflared Docker" \
+      org.label-schema.version=$CLOUDFLARED_VERSION \
+      org.label-schema.schema-version="1.0" \
+      org.label-schema.vcs-ref=$VCS_REF \
+      org.label-schema.vcs-url="https://github.com/zmingxie/dockerfile-cloudflared"
 
 ENV DNS1 1.1.1.1
 ENV DNS2 1.0.0.1
