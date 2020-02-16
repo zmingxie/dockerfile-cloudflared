@@ -1,27 +1,24 @@
 FROM golang:alpine AS builder
-
-ENV CLOUDFLARED_VERSION 2020.2.0
-
+ARG CLOUDFLARED_VERSION
 RUN apk update && apk add build-base;
-RUN wget -O- https://github.com/cloudflare/cloudflared/archive/${CLOUDFLARED_VERSION}.tar.gz | tar -xz -C /go/src
+RUN wget -O- "https://github.com/cloudflare/cloudflared/archive/$CLOUDFLARED_VERSION.tar.gz" | tar -xz -C /go/src
 WORKDIR /go/src/cloudflared-${CLOUDFLARED_VERSION}/cmd/cloudflared
 RUN go build -o /go/bin/cloudflared
 
 
 FROM alpine
 
+ARG CLOUDFLARED_VERSION
 ARG VCS_REF
-
 LABEL org.label-schema.name="Cloudflared Docker" \
-      org.label-schema.version="${CLOUDFLARED_VERSION}" \
-      org.label-schema.schema-version="1.0" \
+      org.label-schema.cloudflared-version="$CLOUDFLARED_VERSION" \
       org.label-schema.vcs-ref="$VCS_REF" \
       org.label-schema.vcs-url="https://github.com/zmingxie/dockerfile-cloudflared"
 
-ENV DNS1 1.1.1.1
-ENV DNS2 1.0.0.1
+ENV DNS1=1.1.1.1 \
+    DNS2=1.0.0.1
 
-RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' > /etc/apk/repositories ; \
+RUN echo 'http://dl-cdn.alpinelinux.org/alpine/edge/main' > /etc/apk/repositories; \
     echo 'http://dl-cdn.alpinelinux.org/alpine/edge/community' >> /etc/apk/repositories; \
     adduser -S cloudflared; \
     apk add --no-cache ca-certificates bind-tools; \

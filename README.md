@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Docker Pulls](https://img.shields.io/docker/pulls/mxie/cloudflared.svg)](https://hub.docker.com/r/mxie/cloudflared/)
 [![Docker Tag](https://images.microbadger.com/badges/version/mxie/cloudflared.svg)](https://microbadger.com/images/mxie/cloudflared)
-[![Docker Layers](https://images.microbadger.com/badges/image/mxie/cloudflared:latest.svg)](https://microbadger.com/images/mxie/cloudlared)
+[![Docker Layers](https://images.microbadger.com/badges/image/mxie/cloudflared:latest.svg)](https://microbadger.com/images/mxie/cloudflared)
 
 (Forked from [upstream](https://github.com/visibilityspots/dockerfile-cloudflared) and modified to use Github Action for releases)
 
