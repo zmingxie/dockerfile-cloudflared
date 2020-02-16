@@ -21,7 +21,7 @@ jobs:
           publish: true
           tag: latest
           dockerFile: ./Dockerfile
-          buildArg: VCS_REF=`git rev-parse --short HEAD`,CLOUDFLARED_VERSION='2020.2.0',BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
+          buildArg: VCS_REF=`git rev-parse --short HEAD`,BUILD_DATE=`date -u +"%Y-%m-%dT%H:%M:%SZ"`
           platform: linux/amd64,linux/arm64,linux/arm/v7
           imageName: ${{ env.DOCKER_IMAGE_NAME }}
           dockerHubUser: ${{ secrets.DOCKER_LOGIN_USERNAME }}

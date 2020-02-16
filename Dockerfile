@@ -1,5 +1,5 @@
 FROM golang:alpine AS builder
-ARG CLOUDFLARED_VERSION
+ENV CLOUDFLARED_VERSION='2020.2.0'
 RUN apk update && apk add build-base;
 RUN wget -O- "https://github.com/cloudflare/cloudflared/archive/$CLOUDFLARED_VERSION.tar.gz" | tar -xz -C /go/src
 WORKDIR /go/src/cloudflared-${CLOUDFLARED_VERSION}/cmd/cloudflared
@@ -8,8 +8,8 @@ RUN go build -o /go/bin/cloudflared
 
 FROM alpine
 
-ARG CLOUDFLARED_VERSION
 ARG VCS_REF
+ENV CLOUDFLARED_VERSION='2020.2.0'
 LABEL org.label-schema.name="Cloudflared Docker" \
       org.label-schema.cloudflared-version="$CLOUDFLARED_VERSION" \
       org.label-schema.vcs-ref="$VCS_REF" \
